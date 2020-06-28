@@ -1,1 +1,3 @@
-# PUCSP-padroes-de-projeto-frameworks
+# PADRÕES DE PROJETO E FRAMEWORKS
+
+Exercício 1 - Padrões criacionais

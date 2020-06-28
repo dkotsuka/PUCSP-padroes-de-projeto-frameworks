@@ -1,0 +1,29 @@
+{
+  "name": "pucsp-padroes-de-projeto-frameworks",
+  "version": "1.0.0",
+  "description": "Atividades do curso de especialização em Engenharia de software da PUC-SP",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "ex1": "node src/ex01/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dkotsuka/PUCSP-padroes-de-projeto-frameworks.git"
+  },
+  "author": "dkotsuka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dkotsuka/PUCSP-padroes-de-projeto-frameworks/issues"
+  },
+  "homepage": "https://github.com/dkotsuka/PUCSP-padroes-de-projeto-frameworks#readme",
+  "devDependencies": {
+    "jest": "^26.1.0",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "@types/jest": "^26.0.3",
+    "@types/node": "^14.0.14",
+    "node": "^14.4.0"
+  }
+}
