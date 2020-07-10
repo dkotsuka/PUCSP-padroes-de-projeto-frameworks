@@ -19,6 +19,7 @@
   "homepage": "https://github.com/dkotsuka/PUCSP-padroes-de-projeto-frameworks#readme",
   "devDependencies": {
     "jest": "^26.1.0",
+    "ts-node": "^8.10.2",
     "typescript": "^3.9.5"
   },
   "dependencies": {
