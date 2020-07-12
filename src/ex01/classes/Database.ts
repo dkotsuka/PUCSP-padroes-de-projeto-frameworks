@@ -4,22 +4,25 @@ export class DBConnection {
   private host: string
 
   configure({ host, port }: ConfigArgs) {
+    console.log(`[DB][CONFIGURE]`)
     this.host = `${host}:${port}`
     return this
   }
 
   test() {
-    console.log(`Testing ${this.host}: ok`)
+    console.log(`[DB][TEST CONNECTION]`)
     return this
   }
 
   connect() {
+    console.log(`[DB][GET CONNECTION]`)
     return new Connection()
   }
 }
 
-class Connection {
+export class Connection {
   execute(query: string) {
+    console.log(`[DB-EXECUTE][${query}]`)
     return [`Query result for "${query}".`]
   }
 }
