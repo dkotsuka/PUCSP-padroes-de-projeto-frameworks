@@ -1,14 +1,18 @@
-export class MessagingService {
-  static connect(queue: string, onMessage: (message) => void) {
-    setTimeout(() => {
-      onMessage(
-        `{
-        "host": "http://localhost/",
-        "port": 3000,
-        "username": "message",
-        "password": "password",
-        "dbname": "database"
-      }`)
-    }, 10000)
+class MessagingService {
+  onMessageListener = []
+  connect(onMessage: (message) => void) {
+    this.onMessageListener.push(onMessage)
+  }
+
+  messageTest() {
+    this.onMessageListener.forEach(fn => fn(`{
+      "host": "http://localhost/",
+      "port": 3000,
+      "username": "message",
+      "password": "password",
+      "dbname": "database"
+    }`))
   }
 }
+
+export const messagingService = new MessagingService()
