@@ -8,7 +8,7 @@ export class Peer {
     this.connections = [];
 
     const server = net.createServer((socket) => {
-      console.log("alguém connectou")
+      this.onSocketConnected(socket)
     });
 
     server.listen(port, () => console.log("Ouvindo porta " + port))
@@ -21,7 +21,25 @@ export class Peer {
     const [host, port] = address.split(":");
 
     const socket = net.createConnection({ port, host }, () =>
-      console.log("Conexão criada")
+      this.onSocketConnected(socket)
     );
+  }
+
+  onSocketConnected(socket: net.Socket) {
+    console.log("Nova conexão");
+    this.connections.push(socket);
+    socket.on('data', (data) =>
+      this.onData(socket, data)
+    );
+
+    this.onConnection(socket);
+  }
+
+  onData(socket, data) { }
+
+  onConnection(socket: net.Socket) { }
+
+  broadcast(data) {
+    this.connections.forEach(socket => socket.write(data))
   }
 }
