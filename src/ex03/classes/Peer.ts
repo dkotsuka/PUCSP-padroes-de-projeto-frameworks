@@ -1,7 +1,9 @@
 import * as net from "net"
+import { Payload } from "./interfaces";
+import payloadResolverChain from "./PayloadResolverChain";
 export class Peer {
-  private port
-  private connections
+  private port: number
+  private connections: net.Socket[]
 
   constructor(port) {
     this.port = port;
@@ -11,12 +13,12 @@ export class Peer {
       this.onSocketConnected(socket)
     });
 
-    server.listen(port, () => console.log("Ouvindo porta " + port))
+    server.listen(port, () => console.log("Listening port " + port))
   }
 
   connectTo(address) {
     if (address.split(":").length !== 2)
-      throw Error("O endereço do outro peer deve ser composto por host:port ");
+      throw Error("Peer address must be formatted like as host:port ");
 
     const [host, port] = address.split(":");
 
@@ -26,7 +28,7 @@ export class Peer {
   }
 
   onSocketConnected(socket: net.Socket) {
-    console.log("Nova conexão");
+    console.log("New connection");
     this.connections.push(socket);
     socket.on('data', (data) =>
       this.onData(socket, data)
@@ -35,11 +37,24 @@ export class Peer {
     this.onConnection(socket);
   }
 
-  onData(socket, data) { }
+  onData(socket, data) {
+    const json = data.toString();
+    const payload: Payload = JSON.parse(json);
+    console.log("recebido> ", payload)
+    const result = payloadResolverChain.execute(payload)
+    socket.write(JSON.stringify(result))
+  }
 
-  onConnection(socket: net.Socket) { }
+  onConnection(socket: net.Socket) {
+    const firstPayload = {
+      message: "Hi !! I'm on port " + this.port
+    }
+    socket.write(JSON.stringify(firstPayload))
+  }
 
   broadcast(data) {
-    this.connections.forEach(socket => socket.write(data))
+    this.connections.forEach((socket: net.Socket) => {
+      socket.write(JSON.parse(data))
+    })
   }
 }
