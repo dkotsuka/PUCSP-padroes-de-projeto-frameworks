@@ -2,7 +2,7 @@ import { ResolverChain } from "./ResolverChain";
 import { Payload } from "./interfaces";
 import { searchHandler, uploadHandler, executeHandler, neighborsHandler } from "./Handlers";
 
-const payloadResolverChain = new ResolverChain<Payload, string>()
+const payloadResolverChain = new ResolverChain<Payload, boolean>()
 
 payloadResolverChain.setHandler(searchHandler)
 payloadResolverChain.setHandler(uploadHandler)

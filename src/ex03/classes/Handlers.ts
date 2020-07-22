@@ -1,34 +1,48 @@
+import * as net from "net"
 import { Payload } from "./interfaces";
 import { Handler } from "./ResolverChain";
 
 
-export const searchHandler: Handler<Payload, string> = (payload: Payload) => {
+export const searchHandler: Handler<Payload, boolean> = (payload: Payload, socket: net.Socket) => {
+  let result
   if (payload?.command != "search")
-    return null
+    return false
 
   if (payload?.args.includes("mp3"))
-    return "Diga não à pirataria."
+    result = "Diga não à pirataria."
 
-  return `Resultado da busca para: ${payload.args}.`
+  result = `Resultado da busca para: ${payload.args}.`
+  socket.write(JSON.stringify({ command: "result", args: result }))
+
+  return true
 }
 
-export const uploadHandler: Handler<Payload, string> = (payload: Payload) => {
+export const uploadHandler: Handler<Payload, boolean> = (payload: Payload, socket: net.Socket) => {
   if (payload?.command != "upload")
-    return null
+    return false
 
-  return `Resultado do upload do arquivo: ${payload.args}.`
+  let result = `Resultado do upload do arquivo: ${payload.args}.`
+  socket.write(JSON.stringify({ command: "result", args: result }))
+
+  return true
 }
 
-export const executeHandler: Handler<Payload, string> = (payload: Payload) => {
+export const executeHandler: Handler<Payload, boolean> = (payload: Payload, socket: net.Socket) => {
   if (payload?.command != "execute")
-    return null
+    return false
 
-  return `Script executado: ${payload.args}.`
+  let result = `Script executado: ${payload.args}.`
+  socket.write(JSON.stringify({ command: "result", args: result }))
+
+  return true
 }
 
-export const neighborsHandler: Handler<Payload, string> = (payload: Payload) => {
+export const neighborsHandler: Handler<Payload, boolean> = (payload: Payload, socket: net.Socket) => {
   if (payload?.command != "neighbors")
-    return null
+    return false
 
-  return `Neighbors for depth of ${payload.args} of this instance.`
+  let result = `Neighbors for depth of ${payload.args} of this instance.`
+  socket.write(JSON.stringify({ command: "result", args: result }))
+
+  return true
 }

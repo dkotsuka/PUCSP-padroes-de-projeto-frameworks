@@ -45,12 +45,16 @@ export class Peer {
     if (payload.command == "result")
       return null
 
-    const result = payloadResolverChain.execute(payload)
-    socket.write(JSON.stringify({ command: "result", args: result }))
+    const result = payloadResolverChain.execute(payload, socket)
+    //socket.write(JSON.stringify({ command: "result", args: result }))
   }
 
   onConnection(socket: net.Socket) {
     console.log(`Connected to socket: ${socket.localAddress}:${socket.localPort}`)
+  }
+
+  getNeighbors() {
+
   }
 
   execute({ command, args }) {
