@@ -1,24 +1,6 @@
 export interface Payload {
   command: string
-}
-
-export interface SearchPayload extends Payload {
-  keywords: string
-  destination: string
-}
-
-export interface UploadPayload extends Payload {
-  filename: string
-  content: string
-}
-
-export interface ExecutePayload extends Payload {
-  script: string
-}
-
-export interface NeighborsPayload extends Payload {
-  depth: number
-  destination: string
+  args: string
 }
 
 const search = { "command": "search", "keywords": "music mp3", "destination": "100.22.11.25: 8888" }

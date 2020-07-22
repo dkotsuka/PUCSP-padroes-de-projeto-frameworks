@@ -7,9 +7,9 @@
     "test": "jest",
     "ex1": "npx ts-node ./src/ex01/index.ts",
     "ex2": "npx ts-node ./src/ex02/index.ts",
-    "ex31": "PORT=3000 npx ts-node ./src/ex03/index.ts",
-    "ex32": "PORT=3001 npx ts-node ./src/ex03/index.ts localhost:3000",
-    "ex33": "PORT=3002 npx ts-node ./src/ex03/index.ts localhost:3001"
+    "local1": "PORT=3000 npx ts-node ./src/ex03/index.ts",
+    "local2": "PORT=3001 npx ts-node ./src/ex03/index.ts",
+    "local3": "PORT=3002 npx ts-node ./src/ex03/index.ts"
   },
   "repository": {
     "type": "git",

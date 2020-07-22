@@ -28,7 +28,7 @@ export class Peer {
   }
 
   onSocketConnected(socket: net.Socket) {
-    console.log("New connection");
+    console.log("Nova conexão estabelecida.");
     this.connections.push(socket);
     socket.on('data', (data) =>
       this.onData(socket, data)
@@ -40,21 +40,22 @@ export class Peer {
   onData(socket, data) {
     const json = data.toString();
     const payload: Payload = JSON.parse(json);
-    console.log("recebido> ", payload)
+    console.log("received -> ", payload)
+
+    if (payload.command == "result")
+      return null
+
     const result = payloadResolverChain.execute(payload)
-    socket.write(JSON.stringify(result))
+    socket.write(JSON.stringify({ command: "result", args: result }))
   }
 
   onConnection(socket: net.Socket) {
-    const firstPayload = {
-      message: "Hi !! I'm on port " + this.port
-    }
-    socket.write(JSON.stringify(firstPayload))
+    console.log(`Connected to socket: ${socket.localAddress}:${socket.localPort}`)
   }
 
-  broadcast(data) {
+  execute({ command, args }) {
     this.connections.forEach((socket: net.Socket) => {
-      socket.write(JSON.parse(data))
+      socket.write(JSON.stringify({ command, args }))
     })
   }
 }

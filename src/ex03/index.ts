@@ -7,5 +7,12 @@ process.argv.slice(2).forEach(otherPeerAddress =>
 );
 
 process.stdin.on('data', data => {
-  peer.broadcast(data.toString().replace(/\n/g, ""))
+  const [command, ...args] = data.toString().replace(/\n/g, "").split(" ")
+
+  if (command == "connect") {
+    return peer.connectTo(`localhost:${args[0]}`)
+  }
+
+  peer.execute({ command, args })
 })
+
