@@ -9,15 +9,17 @@ process.stdin.on('data', data => {
 
   try {
     args.map(arg => {
-      if (arg.split(":").length !== 2)
+      if (arg.split(":").length < 2)
         throw Error("ERROR: Arguments must be formatted as name:value");
 
-      const [attribute, value] = arg.split(":")
-      payload[attribute] = value
+      const [attribute, ...value] = arg.split(":")
+      payload[attribute] = value.join(":")
     })
   } catch (error) {
     return console.log(error.message)
   }
+
+  console.log(payload)
 
   peer.execute(payload)
 })

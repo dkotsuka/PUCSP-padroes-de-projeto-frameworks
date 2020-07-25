@@ -9,7 +9,7 @@ interface UploadPayload extends Payload {
 
 export class UploadResolver extends Resolver {
 
-  execute(payload: UploadPayload, result: Object, origin: net.Socket) {
+  resolve(payload: UploadPayload, result: Object, origin: net.Socket) {
     if (payload.command == "upload") {
 
     }

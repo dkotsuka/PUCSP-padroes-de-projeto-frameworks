@@ -7,7 +7,12 @@ export interface Payload {
 export abstract class Resolver {
   protected next: Resolver
 
-  abstract execute(payload: Payload, result: Object, origin: net.Socket)
+  abstract resolve(payload: Payload, result: Object, origin: net.Socket)
+
+  execute(payload: Payload, result: Object, origin: net.Socket) {
+    this.resolve(payload, result, origin)
+    this.executeNext(payload, result, origin)
+  }
 
   setNext(next: Resolver) {
     this.next = next

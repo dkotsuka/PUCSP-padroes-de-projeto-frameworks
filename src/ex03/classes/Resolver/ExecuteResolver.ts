@@ -8,7 +8,7 @@ interface ExecutePayload extends Payload {
 
 export class ExecuteResolver extends Resolver {
 
-  execute(payload: ExecutePayload, result: Object, origin: net.Socket) {
+  resolve(payload: ExecutePayload, result: Object, origin: net.Socket) {
     if (payload.command == "execute") {
 
     }

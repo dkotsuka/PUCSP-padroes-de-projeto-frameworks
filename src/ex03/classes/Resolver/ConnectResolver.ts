@@ -3,12 +3,13 @@ import { Resolver, Payload } from "./AbstractResolver";
 import { Connections } from "../Connections";
 
 interface ConnectPayload extends Payload {
-  address: string
+  host: string
+  port: string
 }
 
 export class ConnectResolver extends Resolver {
 
-  execute(payload: ConnectPayload, result: Object, origin: net.Socket) {
+  resolve(payload: ConnectPayload, result: Object, origin: net.Socket) {
     if (payload.command == "connect") {
 
       if (origin) {
@@ -17,10 +18,7 @@ export class ConnectResolver extends Resolver {
         return console.log(`[NEW CONNECTION] ${family}:${address}:${port}.`)
       }
 
-      if (payload.address.split(":").length !== 2)
-        return console.log("ERROR: Address must be formatted as host:port");
-
-      const [host, port] = payload.address.split(":")
+      const { host, port } = payload
       const socket = net.createConnection({ host, port: parseInt(port) }, () => {
         Connections.init().add(socket)
         socket.write(JSON.stringify({ command: "connect" }))
