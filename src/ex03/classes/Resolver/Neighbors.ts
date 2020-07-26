@@ -21,7 +21,6 @@ export class NeighborsResolver extends Resolver {
         this.sendToNext(payload, origin)
       }
     }
-    this.executeNext(payload, result, origin)
   }
 
   getLocalAddress() {

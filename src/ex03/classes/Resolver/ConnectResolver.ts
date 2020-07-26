@@ -26,7 +26,5 @@ export class ConnectResolver extends Resolver {
         console.log(`[NEW CONNECTION] ${family}:${address}:${port}.`)
       })
     }
-
-    this.executeNext(payload, result, origin)
   }
 }

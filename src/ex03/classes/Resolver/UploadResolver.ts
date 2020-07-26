@@ -11,8 +11,12 @@ export class UploadResolver extends Resolver {
 
   resolve(payload: UploadPayload, result: Object, origin: net.Socket) {
     if (payload.command == "upload") {
-
+      Connections.init().getAddresses().forEach(addr => {
+        Connections.init().getOne(addr).write(JSON.stringify({
+          request: `File ${payload.filename} upload request.`
+        }))
+      })
+      console.log("[UPLOAD] Sending file to peers.")
     }
-    this.executeNext(payload, result, origin)
   }
 }

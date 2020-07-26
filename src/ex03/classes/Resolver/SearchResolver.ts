@@ -24,6 +24,5 @@ export class SearchResolver extends Resolver {
 
       destination.write(JSON.stringify(payload))
     }
-    this.executeNext(payload, result, origin)
   }
 }
